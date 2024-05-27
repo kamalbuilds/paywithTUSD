@@ -3,7 +3,7 @@ import artifact from "../cookbook/contract/IPeanut.json";
 import { providers, Contract } from "ethers5"
 //https://dev.to/atosh502/install-multiple-versions-of-same-package-using-yarn-2668
 import peanut from '@squirrel-labs/peanut-sdk';
-const ALCHEMY_GOERLI = process.env.REACT_APP_ALCHEMY_GOERLI
+const ALCHEMY_GOERLI = process.env.REACT_APP_ALCHEMY_BNB
 const provider = new providers.JsonRpcProvider(ALCHEMY_GOERLI)
 const contract = new Contract(
   "0xdFB4fbbaf602C76E5B30d0E97F01654D71F23e54",
