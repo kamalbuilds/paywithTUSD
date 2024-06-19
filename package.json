@@ -9,7 +9,7 @@
     "@emotion/styled": "^11.11.0",
     "@railgun-community/cookbook": "^2.6.9",
     "@railgun-community/shared-models": "^7.3.0",
-    "@railgun-community/waku-relayer-client": "^4.4.0",
+    "@railgun-community/waku-relayer-client": "^4.8.3",
     "@railgun-community/wallet": "10.0.2",
     "@squirrel-labs/peanut-sdk": "^0.2.15",
     "@testing-library/jest-dom": "^5.17.0",
