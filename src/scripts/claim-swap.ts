@@ -7,7 +7,8 @@ import {
     NetworkName,
     NETWORK_CONFIG,
     RailgunERC20Recipient,
-    RailgunWalletInfo
+    RailgunWalletInfo,
+    TXIDVersion
 } from '@railgun-community/shared-models';
 import {
     RecipeInput,
@@ -21,7 +22,7 @@ import { getGasDetailsERC20 } from './utils/gas';
 import { sendTx } from "./utils/relayer"
 const ZERO_X_API_KEY = process.env.REACT_APP_ZERO_X_API_KEY
 
-const peanutAddress = "0x891021b34fEDC18E36C015BFFAA64a2421738906"
+const peanutAddress = "0xdFB4fbbaf602C76E5B30d0E97F01654D71F23e54"
 const railgunAdaptorAddress = "0x14a57CA7C5c1AD54fB6c642f428d973fcD696ED4"
 const WETH_GOERLI = NETWORK_CONFIG.Ethereum_Goerli.baseToken.wrappedAddress;
 const USDC_GOERLI = "0x07865c6E87B9F70255377e024ace6630C1Eaa37F"
@@ -68,7 +69,7 @@ export async function privateClaimSwap(
 
     const recipeInput: RecipeInput = {
         railgunAddress: railgunWalletInfo.railgunAddress,
-        networkName: NetworkName.EthereumGoerli,
+        networkName: NetworkName.BNBChain as any,
         erc20Amounts: [withdrawERC20Amounts],
         nfts: [],
     };
@@ -104,7 +105,8 @@ export async function privateClaimSwap(
     const sendWithPublicWallet = true
 
     await generateCrossContractCallsProof(
-        NetworkName.EthereumGoerli,
+        TXIDVersion.V2_PoseidonMerkle,
+        NetworkName.BNBChain as any,
         railgunWallet.id,
         encryptionKey,
         [],
@@ -113,6 +115,7 @@ export async function privateClaimSwap(
         [],
         crossContractCalls,
         //relayerFeeERC20AmountRecipient,
+        // feeERC20AmountRecipients,
         undefined,
         sendWithPublicWallet,
         BigInt('0x1000'),
@@ -121,14 +124,16 @@ export async function privateClaimSwap(
     )
 
     const { transaction } = await populateProvedCrossContractCalls(
-        NetworkName.EthereumGoerli,
+        TXIDVersion.V2_PoseidonMerkle,
+        NetworkName.BNBChain as any,
         railgunWallet.id,
         [],
         [],
         [railgunERC20Recipient],
         [],
         crossContractCalls,
-        //relayerFeeERC20AmountRecipient,
+        // relayerFeeERC20AmountRecipient,
+        // feeERC20AmountRecipients,
         undefined,
         sendWithPublicWallet,
         BigInt('0x1000'),

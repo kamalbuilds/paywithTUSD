@@ -7,7 +7,7 @@
 
 import {
   fullWalletForID,
-  refreshRailgunBalances,
+  refreshBalances,
   generateCrossContractCallsProof,
   populateProvedCrossContractCalls
 } from '@railgun-community/wallet';
@@ -25,9 +25,9 @@ import { PrivateTransferRecipe } from './cookbook/recipes/private-transfer-recip
 import { getGasDetailsERC20, setRailgunGas } from './utils/gas';
 import { getPeanutLink } from "./utils/peanut"
 import { sendTx } from "./utils/relayer"
-
-const peanutAddress = "0x891021b34fEDC18E36C015BFFAA64a2421738906"
-const chainGoerli = NETWORK_CONFIG.Ethereum_Goerli.chain;
+import { TXIDVersion } from '@railgun-community/shared-models';
+const peanutAddress = "0xdFB4fbbaf602C76E5B30d0E97F01654D71F23e54"
+const chainBNB = NETWORK_CONFIG.BNB_Chain.chain;
 
 // TODO1: should return link
 export async function privateTransfer(
@@ -74,7 +74,7 @@ export async function privateTransfer(
 
   const recipeInput: RecipeInput = {
     railgunAddress: railgunAddress,
-    networkName: NetworkName.EthereumGoerli,
+    networkName: NetworkName.BNBChain,
     erc20Amounts: [unshieldERC20Amounts],
     nfts: [],
   };
@@ -94,7 +94,7 @@ export async function privateTransfer(
 
   // console.log("relayerFeeERC20AmountRecipient: ", relayerFeeERC20AmountRecipient)
 
-  await refreshRailgunBalances(chainGoerli, railgunWallet.id, false);
+  const refreshthebalance = await refreshBalances(chainBNB, railgunWallet.id);
 
   const gasDetails = await getGasDetailsERC20(
     railgunWallet.id,
@@ -105,7 +105,8 @@ export async function privateTransfer(
   )
 
   await generateCrossContractCallsProof(
-    NetworkName.EthereumGoerli,
+    TXIDVersion.V2_PoseidonMerkle,
+    NetworkName.BNBChain as any,
     railgunWallet.id,
     encryptionKey,
     [unshieldERC20Amounts],
@@ -122,7 +123,8 @@ export async function privateTransfer(
   )
 
   const { transaction } = await populateProvedCrossContractCalls(
-    NetworkName.EthereumGoerli,
+    TXIDVersion.V2_PoseidonMerkle,
+    NetworkName.BNBChain as any,
     railgunWallet.id,
     [unshieldERC20Amounts],
     [],
@@ -139,8 +141,7 @@ export async function privateTransfer(
   console.log("transaction: ", transaction)
 
   // const txHash = await sendTxRailgunRelayer(transaction, selectedRelayer)
-  const txHash: string | undefined = await sendTx(transaction)
-  //await sendTx(transaction)
+  const txHash: string | undefined = await sendTx(transaction);
 
 
   let peanutLink: string | undefined;

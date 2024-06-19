@@ -22,7 +22,7 @@ const chakraDefaultTheme = extendTheme({
     global: {
       // styles for the `body`
       body: {
-        bg: 'gray.800',
+        bg: 'blue.500',
         color: 'white',
       },
       // styles for the `a`

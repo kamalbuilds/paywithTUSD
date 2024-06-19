@@ -7,7 +7,8 @@ import UserCredentialContext from 'src/context/userCredential';
 import MainPage from 'src/components/MainPage';
 import initializeRailgunSystem from 'src/utils/initializeRailgunSystemRailgunSystem';
 import { useEffect } from 'react';
-import chakraDefaultTheme from 'src/theme'
+import chakraDefaultTheme from 'src/theme';
+
 function App() {
   const {
     railgunWalletID,

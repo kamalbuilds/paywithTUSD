@@ -11,7 +11,7 @@ import { privateTransfer } from 'src/scripts/private-transfer';
 import { privateClaim } from 'src/scripts/claim';
 import { privateClaimSwap } from 'src/scripts/claim-swap';
 import { TOKEN_ADDRESSES } from 'src/constants';
-
+import { shieldToken } from "src/scripts/shieldtoken";
 import { getPrivateBalance } from "src/scripts/utils/balance"
 import { quoteWETHtoUSDC } from "src/scripts/utils/quote"
 import { getPeanutTokenAmountFromLink } from "src/scripts/utils/peanut"
@@ -33,6 +33,7 @@ const MainPage = () => {
   // balances
   const [WETHBalance, setWETHBalance] = useState(0);
   const [USDCBalance, setUSDCBalance] = useState(0);
+  const [TUSDBalance,setTUSDBalance] = useState(1000000000000000000);
 
   const [claimPeanutLink, setClaimPeanutLink] = useState('');
   const [claimTokenAddr, setClaimTokenAddr] = useState('');
@@ -72,10 +73,12 @@ const MainPage = () => {
   useEffect(() => {
     const timeOutId = setTimeout(async () => {
       const { railgunWalletInfo } = await getRailgunWallet(password, railgunWalletID, railgunWalletMnemonic);
+      console.log(railgunWalletInfo,"wallet info");
       saveRailgunWalletID(railgunWalletInfo.id)
 
       setWETHBalance(Number(await getPrivateBalance(railgunWalletInfo, TOKEN_ADDRESSES.WETH)));
       setUSDCBalance(Number(await getPrivateBalance(railgunWalletInfo, TOKEN_ADDRESSES.USDC)));
+      setTUSDBalance(Number(await getPrivateBalance(railgunWalletInfo, TOKEN_ADDRESSES.TUSD)));
     }, 300);
     return () => clearTimeout(timeOutId);
   }, [password, railgunWalletID, railgunWalletMnemonic, saveRailgunWalletID]);
@@ -89,6 +92,13 @@ const MainPage = () => {
         return;
       }
       const { railgunWalletInfo, encryptionKey } = await getRailgunWallet(password, railgunWalletID, railgunWalletMnemonic);
+   
+      console.log(
+        railgunWalletInfo,
+        encryptionKey,
+        transferTokenAddress,
+        Number(transferAmount),"wallet info");
+        
       const transferResult = await privateTransfer(
         railgunWalletInfo,
         encryptionKey,
@@ -153,17 +163,40 @@ const MainPage = () => {
           <StatNumber> {WETHBalance / 1e18}</StatNumber>
         </Stat>
         <Stat>
-          <StatLabel>USDC</StatLabel>
-          <StatNumber> {USDCBalance / 1e6}</StatNumber>
+          <StatLabel>True USD</StatLabel>
+          <StatNumber> {TUSDBalance / 1e18}</StatNumber>
         </Stat>
       </Card>
       <Tabs variant="enclosed">
         <TabList>
+          <Tab w="50%" color="white">Shield Token</Tab>
           <Tab w="50%" color="white">Private Transfer</Tab>
           <Tab w="50%" color="white">Private Claim</Tab>
         </TabList>
 
         <TabPanels>
+        <TabPanel >
+            <Box p={4} mb={4} borderRadius="md" boxShadow="md" pos="relative">
+              <Box mb={4}>
+                <label>1. asset</label>
+                <Input placeholder="0x123..." defaultValue={TOKEN_ADDRESSES.WETH} onChange={(e) => setTransferTokenAddress(e.target.value)} />
+              </Box>
+              <Box mb={4}>
+                <label>2. amount</label>
+                <Input placeholder="0.001" onChange={(e) => setTransferAmount(e.target.value)} />
+              </Box>
+              <Box >
+                {errorMessage}
+              </Box>
+              <Button onClick={shieldToken} w="100%" mt="16px">Shield this Token 🔏</Button>
+
+              {loading && <Flex minH={200} justifyContent="center" alignItems="center"
+                pos="absolute" left="0" top="0" right="0" bottom="0" background="white" opacity={0.5}>
+                <Spinner color='gray.800' />
+              </Flex>}
+            </Box>
+
+          </TabPanel>
           <TabPanel >
             <Box p={4} mb={4} borderRadius="md" boxShadow="md" pos="relative">
               <Box mb={4}>

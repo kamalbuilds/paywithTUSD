@@ -5,7 +5,6 @@ import {
   SnarkJSGroth16,
   getProver,
   // fullWalletForID,
-  // refreshRailgunBalances,
   // generateCrossContractCallsProof,
   // populateProvedCrossContractCalls
 } from '@railgun-community/wallet';

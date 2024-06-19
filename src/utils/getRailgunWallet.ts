@@ -5,17 +5,17 @@ import {
 } from '@railgun-community/wallet';
 import { setRailgunGas } from 'src/scripts/utils/gas';
 
-// export default async function getRailgunWallet(password: string, mnemonic: string) {
-//   const encryptionKey = await pbkdf2(password, "0x0", 1000000);
-//   const railgunWalletInfo = await createRailgunWallet(
-//     encryptionKey,
-//     mnemonic,
-//     undefined, // creationBlockNumbers
-//   )
+export async function getRailgunWalletbymnemonic(password: string, mnemonic: string) {
+  const encryptionKey = await pbkdf2(password, "0x0", 1000000);
+  const railgunWalletInfo = await createRailgunWallet(
+    encryptionKey,
+    mnemonic,
+    undefined, // creationBlockNumbers
+  )
 
-//   await setRailgunGas();
-//   return { railgunWalletInfo, encryptionKey }
-// }
+  await setRailgunGas();
+  return { railgunWalletInfo, encryptionKey }
+}
 
 export default async function getRailgunWallet(password: string, railgunWalletID: string, railgunWalletMnemonic: string) {
   const encryptionKey = await pbkdf2(password, "0x0", 1000000);

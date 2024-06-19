@@ -1,13 +1,14 @@
-## Ghost Pay 👻
+## paywithTusd 👻
 
-GhostPay lets anyone privately send and receive crypto with the sharable URL link. Plus, users have the freedom to receive/claim crypto in any tokens they preferred. This is built at ETH Rome 2023. The project page is [here](https://taikai.network/ethrome/hackathons/ethrome-23/projects/clnfwynab00eswu01pbnmnjif/idea)
+paywithTusd lets anyone privately send and receive crypto with the sharable URL link. Plus, users have the freedom to receive/claim crypto in any tokens they preferred. This is built at BNB Hack Q2. 
 
+Built with 
 - [Railgun](https://www.railgun.org/): An on-chain & smart contract-based system for private Ethereum/EVM DeFi.
 - [Peanut Protocol](https://peanut.to/): A protocol to transfer tokens using URLs
 
 ## Core Functionalities
 ### Private Transfer
-Alice can privately deposit an amount of ETH/ERC20 to the peanut contract from her railgun wallet address. This involves unshielding, unwrapping WETH, etc, in a batch call made possible with railgun's cross-contract call. 
+Alice can privately deposit an amount of ETH/ERC20 to the peanut contract from her railgun wallet address. This involves unshielding, unwrapping WETH, etc, in a batch call made possible with railgun's cross-contract call.
 
 #### UI
 <img width="450" alt="Screenshot 2023-10-08 at 12 03 20" src="https://github.com/porco-rosso-j/eth-rome-2023/assets/88586592/2e60013b-36eb-45bf-8a83-9dd9feff172d">
@@ -29,15 +30,11 @@ Alice can claim ETH from the peanut link and directly shield it to her railgun w
 - [Railgun Cookbook](https://github.com/Railgun-Community/cookbook)
 - [Peanut SDK](https://github.com/peanutprotocol/peanut-sdk/tree/main/src)
 
-## Demo
 ### Demo Video
-https://youtu.be/yKbU_A3ZPVA
-
-### Demo App:
-[ghost-pay-alpha.vercel.app](https://ghost-pay-alpha.vercel.app)
 
 You can create an account with Metamask signing or use the following seed and password.  
 - seed phrase:
 deny ivory target dumb album valley knee broccoli dumb fiscal require process
 - password: 
 Qazwsx0812
+

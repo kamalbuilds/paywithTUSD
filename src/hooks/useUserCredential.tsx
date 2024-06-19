@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const CREDENTIAL_PREFIX = "peanutGun";
+
 const useUserCredential = () => {
   const [password, setPassword] = useState<string | null>(
     localStorage.getItem(`${CREDENTIAL_PREFIX}_password`)

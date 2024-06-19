@@ -8,13 +8,14 @@ import {
   fullWalletForID,
   generateCrossContractCallsProof,
   populateProvedCrossContractCalls,
-  refreshRailgunBalances
+  refreshBalances
 } from '@railgun-community/wallet';
 import {
   NetworkName,
   NETWORK_CONFIG,
   RailgunERC20Recipient,
-  RailgunWalletInfo
+  RailgunWalletInfo,
+  TXIDVersion
 } from '@railgun-community/shared-models';
 import {
   RecipeERC20AmountRecipient,
@@ -25,7 +26,7 @@ import { getPeanutTokenAmountFromLink } from "./utils/peanut"
 import { getGasDetailsERC20 } from './utils/gas';
 import {sendTx} from "./utils/relayer"
 
-const peanutAddress = "0x891021b34fEDC18E36C015BFFAA64a2421738906"
+const peanutAddress = "0xdFB4fbbaf602C76E5B30d0E97F01654D71F23e54"
 const railgunAdaptorAddress = "0x14a57CA7C5c1AD54fB6c642f428d973fcD696ED4"
 const WETH_GOERLI = NETWORK_CONFIG.Ethereum_Goerli.baseToken.wrappedAddress;
 const chainGoerli = NETWORK_CONFIG.Ethereum_Goerli.chain;
@@ -53,7 +54,7 @@ export async function privateClaim(
 
   const recipeInput: RecipeInput = {
     railgunAddress: railgunAddress,
-    networkName: NetworkName.EthereumGoerli,
+    networkName: NetworkName.BNBChain as any,
     erc20Amounts: [shieldERC20Amounts],
     nfts: [],
   };
@@ -75,7 +76,7 @@ export async function privateClaim(
   }
 
   console.log("crossContractCalls: ", crossContractCalls)
-  await refreshRailgunBalances(chainGoerli, railgunWallet.id, false);
+  await refreshBalances(chainGoerli, railgunWallet.id);
 
   const gasDetails = await getGasDetailsERC20(
     railgunWallet.id,
@@ -88,7 +89,8 @@ export async function privateClaim(
   const sendWithPublicWallet = true
 
   await generateCrossContractCallsProof(
-    NetworkName.EthereumGoerli,
+    TXIDVersion.V2_PoseidonMerkle,
+    NetworkName.BNBChain as any,
     railgunWallet.id,
     encryptionKey,
     [],
@@ -105,7 +107,8 @@ export async function privateClaim(
   )
 
   const { transaction } = await populateProvedCrossContractCalls(
-    NetworkName.EthereumGoerli,
+    TXIDVersion.V2_PoseidonMerkle,
+    NetworkName.BNBChain as any,
     railgunWallet.id,
     [],
     [],
@@ -113,6 +116,7 @@ export async function privateClaim(
     [],
     crossContractCalls,
     // relayerFeeERC20AmountRecipient,
+    // feeERC20AmountRecipients,
     undefined,
     sendWithPublicWallet,
     BigInt('0x1000'),

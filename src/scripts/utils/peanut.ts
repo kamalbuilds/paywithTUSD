@@ -6,7 +6,7 @@ import peanut from '@squirrel-labs/peanut-sdk';
 const ALCHEMY_GOERLI = process.env.REACT_APP_ALCHEMY_GOERLI
 const provider = new providers.JsonRpcProvider(ALCHEMY_GOERLI)
 const contract = new Contract(
-  "0x891021b34fEDC18E36C015BFFAA64a2421738906",
+  "0xdFB4fbbaf602C76E5B30d0E97F01654D71F23e54",
   artifact.abi,
   provider,
 )

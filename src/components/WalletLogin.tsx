@@ -70,6 +70,7 @@ const WalletLogin: React.FC = () => {
       </Text>
 
       {railgunWalletMnemonic ? <Box mb={6}>
+        <Text mb={4}>Pay with TUSD </Text>
         <Text mb={2}>Railgun Wallet ID</Text>
         <Textarea
           defaultValue={railgunWalletID ? obscureWords(railgunWalletID) : ''}
@@ -78,7 +79,7 @@ const WalletLogin: React.FC = () => {
       </Box> :
         <Box mb={6}>
           <Text >Railgun Wallet Mnemonic</Text>
-          <Text fontSize="12px" mb={2} color="gray.500">  You have to use mnemonic to login to the wallet at the first time.</Text>
+          <Text fontSize="12px" mb={2} color="white.500">  You have to use mnemonic to login to the wallet at the first time.</Text>
           <Textarea
             onChange={(e) => setRailgunWalletMnemonicInput(e.target.value)}
             placeholder="apple banana cherry dolphin elephant frog grape hill igloo jelly kite lemon" />

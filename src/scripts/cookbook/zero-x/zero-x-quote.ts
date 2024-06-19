@@ -142,7 +142,7 @@ export class ZeroXQuote {
         sellAmount: sellTokenValueResponse,
       } = await getZeroXData<ZeroXAPIPriceData>(
         ZeroXApiEndpoint.GetSwapQuote,
-        networkName,
+        NetworkName.BNBChain as any,
         isRailgun,
         params,
       );
@@ -150,7 +150,7 @@ export class ZeroXQuote {
       console.log("4")
 
       const invalidError = this.getZeroXQuoteInvalidError(
-        networkName,
+        NetworkName.BNBChain as any,
         to,
         sellTokenAddress,
         buyTokenAddress,

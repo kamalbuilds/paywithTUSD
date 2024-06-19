@@ -6,7 +6,8 @@ import {
     FeeTokenDetails,
     NETWORK_CONFIG,
     RailgunERC20Amount,
-    RailgunERC20Recipient
+    RailgunERC20Recipient,
+    TXIDVersion
 } from '@railgun-community/shared-models';
 import { setRailgunFees } from "@railgun-community/cookbook"
 import { ContractTransaction } from "ethers"
@@ -26,7 +27,7 @@ const feeTokenDetailsWETH: FeeTokenDetails = {
 
 export async function setRailgunGas() {
     const shieldUnshieldfee = 25n // must be 25n
-    await setRailgunFees(NetworkName.EthereumGoerli, shieldUnshieldfee, shieldUnshieldfee)
+    await setRailgunFees(NetworkName.BNBChain as any, shieldUnshieldfee, shieldUnshieldfee)
 }
 
 export async function getGasDetailsERC20(
@@ -38,7 +39,8 @@ export async function getGasDetailsERC20(
 ):Promise<TransactionGasDetails> {
 
     const {gasEstimate} = await gasEstimateForUnprovenCrossContractCalls(
-        NetworkName.EthereumGoerli,
+        TXIDVersion.V2_PoseidonMerkle,
+        NetworkName.BNBChain as any,
         railgunWalletID,
         encryptionKey,
         railgunERC20Amount,

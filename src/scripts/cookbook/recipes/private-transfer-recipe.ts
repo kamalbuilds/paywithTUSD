@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NetworkName } from '@railgun-community/shared-models';
 import {
   Recipe,
@@ -27,7 +28,7 @@ export class PrivateTransferRecipe extends Recipe {
   }
 
   protected supportsNetwork(networkName: NetworkName): boolean {
-    return NetworkName.EthereumGoerli == networkName
+    return NetworkName.BNBChain === networkName
   }
 
   protected async getInternalSteps(

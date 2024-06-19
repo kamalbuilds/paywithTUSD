@@ -1,26 +1,30 @@
 import { 
-    refreshRailgunBalances,
+    refreshBalances,
     fullWalletForID,
     balanceForERC20Token
  } from '@railgun-community/wallet';
  import {
     NetworkName,
     NETWORK_CONFIG,
-    RailgunWalletInfo
+    RailgunWalletInfo,
+    TXIDVersion
   } from '@railgun-community/shared-models';
 
-const chainGoerli = NETWORK_CONFIG.Ethereum_Goerli.chain;
+const chainBNB = NETWORK_CONFIG.BNB_Chain.chain;
 
 export async function getPrivateBalance(railgunWalletInfo: RailgunWalletInfo, tokenAddress:string):Promise<bigint> {    
     const railgunWallet = await fullWalletForID(railgunWalletInfo.id);
-    await refreshRailgunBalances(chainGoerli, railgunWallet.id, false);
+    await refreshBalances(chainBNB, railgunWallet.id);
 
     const balance = await balanceForERC20Token(
+        TXIDVersion.V2_PoseidonMerkle,
         railgunWallet,
-        NetworkName.EthereumGoerli,
-        tokenAddress
+        NetworkName.BNBChain,
+        tokenAddress,
+        false
     )
 
-    console.log("balance: ", balance)
+    console.log(`balance for ${tokenAddress}`, balance);
+    console.log(railgunWallet)
     return balance
 }

@@ -36,14 +36,14 @@ export async function quoteWETHtoUSDC(amount: number):Promise<number> {
     }
 
     const swapQuoteParam:SwapQuoteParams = {
-        networkName: NetworkName.EthereumGoerli,
+        networkName: NetworkName.BNBChain,
         sellERC20Amount: sellERC20Amount,
         buyERC20Info: buyERC20Info,
         slippageBasisPoints: 10n,
         isRailgun: true
     }
     
-    const ret = await ZeroXQuote.getSwapQuote(swapQuoteParam)
+    const ret = await ZeroXQuote.getSwapQuote(swapQuoteParam as any)
     console.log("ret: ", ret)
 
     const output = Math.floor((Number(ret.buyERC20Amount.amount)/1e6))

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NetworkName } from '@railgun-community/shared-models';
 import {
   Recipe,
@@ -29,7 +30,7 @@ export class PrivateClaimRecipe extends Recipe {
 
   protected supportsNetwork(networkName: NetworkName): boolean {
     // return BeefyAPI.supportsNetwork(networkName);
-    return NetworkName.EthereumGoerli == networkName
+    return NetworkName.BNBChain == networkName
   }
 
   protected async getInternalSteps(

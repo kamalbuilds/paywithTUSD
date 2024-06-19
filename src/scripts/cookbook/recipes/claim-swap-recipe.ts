@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { 
     NetworkName, 
     isDefined,
@@ -27,6 +28,7 @@ import {
 import {DesignateShieldERC20RecipientStep} from "../steps/designate-shield-erc20-recipient-step"
 import { PeanutWithdrawStep } from '../steps/peanut-withdraw-step';
 import {Optional} from "../../utils/type"
+import { filterProps } from 'framer-motion';
 
 export class ClaimSwapRecipe extends SwapRecipe {
   readonly config: RecipeConfig = {
@@ -78,7 +80,7 @@ export class ClaimSwapRecipe extends SwapRecipe {
     }
 
   protected supportsNetwork(networkName: NetworkName): boolean {
-    return NetworkName.EthereumGoerli === networkName
+    return NetworkName.BNBChain === networkName
   }
 
   async getSwapQuote(
